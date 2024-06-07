@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Bigmart-Customer Support</h4>
+                  <p class="card-description" style="color:Green;font-size:20px">
+                    Queries and Complaints
+                  </p>
+                  <div class="table-responsive pt-3">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                            <th>
+                                Customer ID
+                            </th>
+                          <th>
+                            Name
+                          </th>
+                          <th>
+                             Email
+                          </th>
+                          <th>
+                          Subject
+                          </th>
+                            <th>
+                                Message
+                            </th>
+                            <th>
+                                Remove
+                            </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for d in data %}
+                        <tr>
+                            <td>{{d.id}}</td>
+                            <td>{{d.Name}}</td>
+                            <td>{{d.Email}}</td>
+                            <td>{{d.Subject}}</td>
+                            <td>{{d.Message}}</td>
+
+                            <td>
+                                <a href="{% url 'delete_queries' c_id=d.id %}">
+                                    <button type="button" class="btn btn-dark btn-rounded btn-fw">Delete</button>
+                                </a>
+                            </td>
+
+                        </tr>
+                      {% endfor %}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+</body>
+</html>
+{% endblock %}
