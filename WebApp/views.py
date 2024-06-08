@@ -28,6 +28,7 @@ def Save_CustomerMessages(request):
         cms = request.POST.get('message')
 
         obj = ContactDB(Name =cnm,Email =cem, Subject =csb,Message =cms )
+        messages.success(request,"Thank you for your message we will contact you shortly")
         obj.save()
         return redirect(ContactPage)
 
@@ -96,10 +97,17 @@ def Save_Cart(request):
 
 def View_Cart(request):
     data = CartDB.objects.filter(UserName=request.session['Name'])
+    subtotal = 0
+    delivery = 0
     total = 0
     for d in data:
-        total = total+d.TotalPrice
-    return render(request,"Cart.html",{'data':data,'total':total})
+        subtotal = subtotal+d.TotalPrice
+        if subtotal >= 1500:
+            delivery = 100
+        else:
+            delivery = 250
+        total = subtotal+delivery
+    return render(request,"Cart.html",{'data':data,'subtotal':subtotal,'delivery':delivery,'total':total})
 
 def Remove_CartedItem(request,p_id):
     x = CartDB.objects.get(id = p_id)
@@ -109,3 +117,23 @@ def Remove_CartedItem(request,p_id):
 
 def user_loginpage(request):
     return render(request,"UserLogIn.html")
+def checkout_page(request):
+    data = CartDB.objects.filter(UserName=request.session['Name'])
+    subtotal = 0
+    delivery = 0
+    total = 0
+    for d in data:
+        subtotal = subtotal+d.TotalPrice
+        if subtotal >= 1500:
+            delivery = 100
+        else:
+            delivery = 250
+        total = subtotal+delivery
+
+    return render(request,"Checkoutpage.html",{'subtotal':subtotal,'total':total,'delivery':delivery})
+
+def payment_page(request):
+    return render(request,"paymentPage.html")
+
+def save_payment_details(request):
+    if request.method=="POST":

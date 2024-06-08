@@ -18,4 +18,6 @@ urlpatterns = [
     path('View_Cart/',views.View_Cart,name="View_Cart"),
     path('Remove_CartedItem/<int:p_id>',views.Remove_CartedItem,name="Remove_CartedItem"),
     path('user_loginpage/',views.user_loginpage,name="user_loginpage"),
+    path('checkout_page/',views.checkout_page,name="checkout_page"),
+    path('payment_page/',views.payment_page,name="payment_page"),
 ]
