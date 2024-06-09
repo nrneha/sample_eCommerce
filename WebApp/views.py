@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from Backend.models import Product_DB,Category_DB
-from WebApp.models import ContactDB,User_Account,CartDB
+from WebApp.models import ContactDB,User_Account,CartDB,PaymentDB
 from django.contrib import messages
 
 # Create your views here.
@@ -137,3 +137,13 @@ def payment_page(request):
 
 def save_payment_details(request):
     if request.method=="POST":
+        nm = request.POST.get('user')
+        twn = request.POST.get('city')
+        pin = request.POST.get('pin')
+        mb = request.POST.get('mobile')
+        em = request.POST.get('email')
+
+        obj = PaymentDB(Name=nm,Town=twn,PIN=pin,Mobile=mb,Email=em)
+        obj.save()
+        return redirect(payment_page)
+

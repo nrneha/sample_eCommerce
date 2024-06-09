@@ -20,4 +20,5 @@ urlpatterns = [
     path('user_loginpage/',views.user_loginpage,name="user_loginpage"),
     path('checkout_page/',views.checkout_page,name="checkout_page"),
     path('payment_page/',views.payment_page,name="payment_page"),
+    path('save_payment_details/',views.save_payment_details,name="save_payment_details"),
 ]
