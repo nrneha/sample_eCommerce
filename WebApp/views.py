@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from Backend.models import Product_DB,Category_DB
 from WebApp.models import ContactDB,User_Account,CartDB,PaymentDB
 from django.contrib import messages
+import razorpay
 
 # Create your views here.
 
@@ -133,7 +134,17 @@ def checkout_page(request):
     return render(request,"Checkoutpage.html",{'subtotal':subtotal,'total':total,'delivery':delivery})
 
 def payment_page(request):
-    return render(request,"paymentPage.html")
+    customer = PaymentDB.objects.order_by('-id').first()
+    payy = customer.Total
+    amount = int(payy*100)
+    pay_str = str(amount)
+    for i in pay_str:
+        print(i)
+    if request.method=="POST":
+        order_currency ='INR'
+        client = razorpay.Client(auth=('rzp_test_U0yRWmp89Hl5OI','mXkgiRPKZztlHvSqrXvKzDCu'))
+        payment = client.order.create({'amount':amount,'currency':order_currency,'payment_capture':'1'})
+    return render(request,"paymentPage.html",{'customer':customer,'pay_str':pay_str})
 
 def save_payment_details(request):
     if request.method=="POST":
@@ -142,8 +153,9 @@ def save_payment_details(request):
         pin = request.POST.get('pin')
         mb = request.POST.get('mobile')
         em = request.POST.get('email')
+        tt = request.POST.get('total')
 
-        obj = PaymentDB(Name=nm,Town=twn,PIN=pin,Mobile=mb,Email=em)
+        obj = PaymentDB(Name=nm,Town=twn,PIN=pin,Mobile=mb,Email=em,Total=tt)
         obj.save()
         return redirect(payment_page)
 

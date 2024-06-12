@@ -78,7 +78,7 @@
                 {% if request.session.Name %}
 	          <li class="nav-item"><a href="{% url 'UserLogout' %}" class="nav-link">welcome, {{request.session.Name}}/Logout</a></li>
                 {% else %}
-	          <li class="nav-item"><a href="{% url 'UserLogin' %}" class="nav-link">Register/Login</a></li>
+	          <li class="nav-item"><a href="{% url 'user_loginpage' %}" class="nav-link">Register/Login</a></li>
                 {% endif %}
 
 	          <li class="nav-item cta cta-colored"><a href="{% url 'View_Cart' %}" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>

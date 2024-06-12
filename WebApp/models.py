@@ -16,8 +16,8 @@ class User_Account(models.Model):
 class CartDB(models.Model):
     UserName = models.CharField(max_length=100,null=True,blank=True)
     Product = models.CharField(max_length=100,null=True,blank=True)
-    Quantity = models.IntegerField(max_length=100,null=True,blank=True)
-    TotalPrice = models.IntegerField(max_length=100,null=True,blank=True)
+    Quantity = models.IntegerField(null=True,blank=True)
+    TotalPrice = models.IntegerField(null=True,blank=True)
 
 class PaymentDB(models.Model):
     Name = models.CharField(max_length=100,null=True,blank=True)
@@ -25,3 +25,4 @@ class PaymentDB(models.Model):
     PIN = models.CharField(max_length=100,null=True,blank=True)
     Mobile = models.CharField(max_length=100,null=True,blank=True)
     Email = models.EmailField(max_length=100,null=True,blank=True)
+    Total = models.IntegerField(null=True,blank=True)
