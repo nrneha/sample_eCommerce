@@ -24,6 +24,7 @@ def Save_Categories_Data(request):
         cim = request.FILES['image']
         C_data = Category_DB(Category_Name=cnm, Category_Description=cds, Category_Image=cim)
         C_data.save()
+
         messages.success(request,"Category Saved Successfully.!")
 
         return redirect(Category_Page)
